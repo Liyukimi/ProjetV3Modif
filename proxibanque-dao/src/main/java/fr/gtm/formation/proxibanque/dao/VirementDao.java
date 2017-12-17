@@ -26,18 +26,18 @@ public class VirementDao extends GenericDaoImpl<Virement, Integer> implements Vi
 	}
 
 	@Override
-	public Collection getComptesByViremenent(int idVirement) throws DaoException
+	public Collection getComptesByViremenent(Virement virement) throws DaoException
 	{
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 
 	@Override
-	public Collection getVirementsByCompte(int numeroCompte, String typeVirement) throws DaoException
+	public Collection getVirementsByCompte(Compte compte, String typeVirement) throws DaoException
 	{
 		Collection<Virement> listeVirements = null;
 
 		EntityManager em = this.emf.createEntityManager();
-
+		int numeroCompte = compte.getNumeroCompte();
 		try
 		{
 			CriteriaBuilder builder = em.getCriteriaBuilder();

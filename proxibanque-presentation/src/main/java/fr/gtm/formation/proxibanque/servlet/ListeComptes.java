@@ -97,7 +97,7 @@ public class ListeComptes extends HttpServlet
 		session.setAttribute("warning", null);
 		ClientServices clientServices = new ClientServices();
 
-		Client clientBdd;
+		Client clientBdd = null;
 		ArrayList<Compte> listeComptes = null;
 		try
 		{
@@ -108,7 +108,6 @@ public class ListeComptes extends HttpServlet
 			{
 				session.setAttribute("warning", "Le client " + clientBdd.getNom() + " " + clientBdd.getPrenom() + " n'a pas de compte");
 			}
-			session.setAttribute("client", clientBdd);
 		}
 		catch (ServiceException ex)
 		{
@@ -117,6 +116,7 @@ public class ListeComptes extends HttpServlet
 		}
 
 		session.setAttribute("ListeComptes", listeComptes);
+		session.setAttribute("client", clientBdd);
 
 		// Step 3 : response to the user
 		RequestDispatcher dispatcher;

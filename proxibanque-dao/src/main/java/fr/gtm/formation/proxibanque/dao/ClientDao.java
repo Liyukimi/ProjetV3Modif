@@ -119,7 +119,7 @@ public class ClientDao extends GenericDaoImpl<Client, Integer> implements Client
 			{
 				sql += ", ";
 			}
-			sql += "mail = '" + object.getMail();
+			sql += "mail = '" + object.getMail() + "'";
 		}
 		sql += " WHERE id_client = " + object.getIdClient();
 

@@ -32,31 +32,32 @@
 								<legend>Création d'un nouveau client</legend>
 								<div class="form-group">
 									<label  for="nom">Nom :</label>
-									<input type="text" class="form-control" required="required" name="nom" maxlength="20">
+									<input type="text" class="form-control" required="required" name="nom" title="Maximum 20 caractères non accentués" pattern="[aA-Z][a-zA-Z-]+">
 								</div>
 								<div class="form-group">
 									<label  for="prenom">Prénom :</label>
-									<input type="text" class="form-control" required="required" name="prenom" maxlength="20">
+									<input type="text" class="form-control" required="required" name="prenom" title="Maximum 20 caractères non accentués" pattern="[a-zA-Z][a-zA-Z-]+">
 								</div>
 								<div class="form-group">
 									<label for="adresse">Adressee :</label>
-									<input type="text" class="form-control" name="adresse" maxlength="60">
+									<input type="text" class="form-control" name="adresse" name="adresse" title="Numéro de rue et adresse. Maximum 60 caractères non accentués" pattern="[0-9]+\s[a-zA-Z-\s]+" maxlength="60">
 								</div>
 								<div class="form-group">
 									<label  for="codePostal">Code Postal :</label>
-									<input type="number" class="form-control" name="codePostal" minlenght="5" maxlength="5">
+									<input type="text" class="form-control" name="codePostal" title="5 chiffres" pattern="[0-9]{5}" name="codePostal">
 								</div>
 								<div class="form-group">
 									<label  for="ville">Ville :</label>
-									<input type="text" class="form-control" name="ville" maxlength="20">
+									<input type="text" class="form-control" name="ville" pattern="[a-zA-Z][a-zA-Z-\s]+" title="Maximum 20 caractères non accentués" name="ville" maxlength="20">
 								</div>						
 								<div class="form-group">
 									<label  for="telephone">Téléphone :</label>
-									<input type="tel" class="form-control" name="telephone" minlenght="10" maxlength="10">
+									<!-- pattern = expression régulière, un 0 en 1er et 9 chiffres -->
+									<input type="tel" class="form-control" name="telephone" pattern="^0[1-9][0-9]{8}$"> 
 								</div>
 								<div class="form-group">
 									<label  for="mail">email :</label>
-									<input type="email" class="form-control" name="mail" maxlength="40">
+									<input type="email" class="form-control" name="mail" title="Exemple : toto@toto.fr" name="mail" maxlength="40">
 								</div>
 									<input type="hidden" name="login" value=${conseiller.login}>
 								<button type="submit" class="btn btn-primary">Valider</button>

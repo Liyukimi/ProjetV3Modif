@@ -71,9 +71,12 @@ public abstract class GenericDaoImpl<T, PK extends Serializable> implements Gene
 	{
 		EntityManager em = this.emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
+		T objetRetour = null;
 		try
 		{
-			return (T) em.find(entityType, primaryKey);
+			tx.begin();
+			objetRetour = (T) em.find(entityType, primaryKey);
+			tx.commit();
 		}
 		catch (IllegalArgumentException e)
 		{
@@ -94,7 +97,12 @@ public abstract class GenericDaoImpl<T, PK extends Serializable> implements Gene
 		finally
 		{
 			em.close();
+			if (objetRetour == null)
+			{
+				throw new DaoException("Le " + entityType.getSimpleName().toLowerCase() + " n'existe pas");
+			}
 		}
+		return objetRetour;
 	}
 
 	@Override

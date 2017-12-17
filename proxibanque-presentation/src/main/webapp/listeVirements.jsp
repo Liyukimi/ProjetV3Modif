@@ -8,14 +8,14 @@
                 <div class="row">
                     <div class="col-lg-12">                    	
                         <h1 class="page-header">
-                            <i class="fa fa-credit-card"></i> Virement compte à compte
+                            <i class="fa fa-credit-card"></i> Liste des virements d'un compte
                         </h1>
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="index.jsp">Tableau de bord</a>
                             </li>
                             <li class="active">
-                                <i class="fa fa-credit-card"></i> Virement compte à compte
+                                <i class="fa fa-credit-card"></i> Liste des virements d'un compte
                             </li>
                         </ol>
                     </div>

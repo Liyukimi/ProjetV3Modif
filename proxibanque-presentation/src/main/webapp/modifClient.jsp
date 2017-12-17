@@ -32,27 +32,27 @@
 								<legend>Modifier les informations du client</legend>
 								<div class="form-group">
 									<label  for="nom">Nom :</label>
-									<input type="text" class="form-control" placeholder="${client.nom}" name="nom" maxlength="20">
+									<input type="text" class="form-control" placeholder="${client.nom}" name="nom"  title="Maximum 20 caractères non accentués" pattern="[aA-Z][a-zA-Z-]+">
 								</div>
 								<div class="form-group">
 									<label  for="prenom">Prénom :</label>
-									<input type="text" class="form-control" placeholder="${client.prenom}" name="prenom" maxlength="20">
+									<input type="text" class="form-control" placeholder="${client.prenom}" name="prenom" title="Maximum 20 caractères non accentués" pattern="[aA-Z][a-zA-Z-]+">
 								</div>
 								<div class="form-group">
 									<label for="adresse">Adressee :</label>
-									<input type="text" class="form-control" placeholder="${client.adresse}" name="adresse" maxlength="60">
+									<input type="text" class="form-control" placeholder="${client.adresse}" name="adresse" title="Numéro de rue et adresse. Maximum 60 caractères non accentués" pattern="[0-9]+\s[a-zA-Z-\s]+" maxlength="60">
 								</div>
 								<div class="form-group">
 									<label  for="codePostal">Code Postal :</label>
-									<input type="number" class="form-control" placeholder="${client.codePostal}" name="codePostal" minlenght="5" maxlength="5">
+									<input type="text" class="form-control" placeholder="${client.codePostal}" title="5 chiffres" pattern="[0-9]{5}" name="codePostal">
 								</div>
 								<div class="form-group">
 									<label  for="ville">Ville :</label>
-									<input type="text" class="form-control" placeholder="${client.ville}" name="ville" maxlength="20">
+									<input type="text" class="form-control" placeholder="${client.ville}" pattern="[a-zA-Z][a-zA-Z-\s]+" title="Maximum 20 caractères" name="ville" maxlength="20">
 								</div>
 								<div class="form-group">
 									<label  for="mail">email :</label>
-									<input id="email" type="text" class="form-control" placeholder="${client.mail}" name="mail" maxlength="40">
+									<input id="email" type="text" class="form-control" placeholder="${client.mail}" title="Exemple : toto@toto.fr" name="mail" maxlength="40">
 								</div>
 									<input type="hidden" name="idClientSelect" value=${client.idClient}>
 									<input type="hidden" name="login" value=${conseiller.login}>

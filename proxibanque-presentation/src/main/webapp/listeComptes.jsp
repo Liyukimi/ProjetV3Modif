@@ -26,7 +26,11 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<%@include file="etatRequete.jsp" %>
-						
+						<c:if test = "${empty ListeComptes && !empty client}">
+							<div class="alert alert-warning">
+								<h5> Le client ${client.prenom} ${client.nom} n'a pas de compte</h5>
+							</div>
+						</c:if>
 						<fieldset>
 							<legend>Sélectionner un de vos clients dans la liste ci-dessous pour afficher ses comptes</legend>
 							

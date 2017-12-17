@@ -5,7 +5,9 @@
  */
 package fr.gtm.formation.proxibanque.servlet;
 
+import fr.gtm.formation.proxibanque.domaine.Compte;
 import fr.gtm.formation.proxibanque.domaine.Virement;
+import fr.gtm.formation.proxibanque.service.CompteServices;
 import fr.gtm.formation.proxibanque.service.VirementServices;
 import fr.gtm.formation.proxibanque.service.exceptions.ServiceException;
 import java.io.IOException;
@@ -91,26 +93,39 @@ public class ListeVirements extends HttpServlet
 		session.setAttribute("warning", null);
 		VirementServices virementServices = new VirementServices();
 
-		ArrayList<Virement> listeDebits = null;
-		ArrayList<Virement> listeCredits = null;
+		//Vérifie que les compte existe
+		CompteServices compteServices = new CompteServices();
 		try
 		{
-			listeDebits = (ArrayList<Virement>) virementServices.getVirementsByCompte(numCompte, "debit");
-			listeCredits = (ArrayList<Virement>) virementServices.getVirementsByCompte(numCompte, "credit");
-			if (listeDebits == null && listeCredits == null)
+			Compte compte = compteServices.getCompteByNumero(numCompte);
+			ArrayList<Virement> listeDebits = null;
+			ArrayList<Virement> listeCredits = null;
+			//Récupère les listes des virements débits et crédits
+			try
 			{
-				session.setAttribute("warning", "Le compte n°" + numCompte + " n'a aucune opération récente");
+				listeDebits = (ArrayList<Virement>) virementServices.getVirementsByCompte(compte, "debit");
+				listeCredits = (ArrayList<Virement>) virementServices.getVirementsByCompte(compte, "credit");
+				if (listeDebits == null && listeCredits == null)
+				{
+					session.setAttribute("warning", "Le compte n°" + numCompte + " n'a aucune opération récente");
+				}
 			}
+			catch (ServiceException ex)
+			{
+				Logger.getLogger(ListeComptes.class.getName()).log(Level.SEVERE, null, ex);
+				session.setAttribute("error", ex.getMessage());
+			}
+
+			session.setAttribute("ListeDebits", listeDebits);
+			session.setAttribute("ListeCredits", listeCredits);
+			session.setAttribute("numCompte", numCompte);
+
 		}
 		catch (ServiceException ex)
 		{
-			Logger.getLogger(ListeComptes.class.getName()).log(Level.SEVERE, null, ex);
-			session.setAttribute("error", ex.getMessage());
+			Logger.getLogger(ListeVirements.class.getName()).log(Level.SEVERE, null, ex);
+			session.setAttribute("error", "Le compte n°" + numCompte + " n'existe pas");
 		}
-
-		session.setAttribute("ListeDebits", listeDebits);
-		session.setAttribute("ListeCredits", listeCredits);
-		session.setAttribute("numCompte", numCompte);
 
 		// Step 3 : response to the user
 		RequestDispatcher dispatcher;

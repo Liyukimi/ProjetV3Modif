@@ -40,13 +40,13 @@ public class VirementServices
 	 * @return Collection de virements
 	 * @throws ServiceException
 	 */
-	public Collection<Virement> getVirementsByCompte(int numeroCompte, String typeVirement) throws ServiceException
+	public Collection<Virement> getVirementsByCompte(Compte compte, String typeVirement) throws ServiceException
 	{
 		virementDao = new VirementDao();
 		Collection<Virement> listeVirements = new ArrayList<>();
 		try
 		{
-			listeVirements = virementDao.getVirementsByCompte(numeroCompte, typeVirement);
+			listeVirements = virementDao.getVirementsByCompte(compte, typeVirement);
 		}
 		catch (DaoException ex)
 		{
@@ -65,13 +65,13 @@ public class VirementServices
 	 * @return collection de comptes
 	 * @throws ServiceException
 	 */
-	public Collection<Compte> getComptesByViremenent(int idVirement) throws ServiceException
+	public Collection<Compte> getComptesByViremenent(Virement virement) throws ServiceException
 	{
 		virementDao = new VirementDao();
 		Collection<Compte> listeComptes = new ArrayList<>();
 		try
 		{
-			listeComptes = virementDao.getComptesByViremenent(idVirement);
+			listeComptes = virementDao.getComptesByViremenent(virement);
 		}
 		catch (DaoException ex)
 		{
@@ -112,10 +112,10 @@ public class VirementServices
 		{
 			compteDebiteur = compteDao.getCompteByNumero(numCompteDebiteur);
 		}
-		catch (DaoException ex)
+		catch (DaoException e)
 		{
-			Logger.getLogger(VirementServices.class.getName()).log(Level.SEVERE, null, ex);
-			throw new ServiceException(ex.getMessage(), ex.getCause());
+			message = "Le compte n°" + numCompteDebiteur + " à débiter n'existe pas";
+			throw new ServiceException(message, e);
 		}
 
 		// Récupère le compte à créditer
@@ -123,10 +123,10 @@ public class VirementServices
 		{
 			compteCrediteur = compteDao.getCompteByNumero(numCompteCrediteur);
 		}
-		catch (DaoException ex)
+		catch (DaoException e)
 		{
-			Logger.getLogger(VirementServices.class.getName()).log(Level.SEVERE, null, ex);
-			throw new ServiceException(ex.getMessage(), ex.getCause());
+			message = "Le compte n°" + numCompteCrediteur + " à créditer n'existe pas";
+			throw new ServiceException(message, e);
 		}
 
 		// Vérifie si les comptes ne sont pas identiques
@@ -161,7 +161,7 @@ public class VirementServices
 			// Le compte ne peut pas être crédité
 			else
 			{
-				message = "Attention, le compte à débiter n'a pas un solde suffisant pour effectuer un virement de " + montant + " euros";
+				message = "Le compte à débiter n'a pas un solde suffisant pour effectuer un virement de " + montant + " euros";
 			}
 		}
 
