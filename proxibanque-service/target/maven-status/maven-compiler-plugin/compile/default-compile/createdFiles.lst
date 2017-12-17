@@ -1,0 +1,7 @@
+fr\gtm\formation\proxibanque\service\webservice\WebserviceConfig.class
+fr\gtm\formation\proxibanque\service\exceptions\ServiceException.class
+fr\gtm\formation\proxibanque\service\VirementServices.class
+fr\gtm\formation\proxibanque\service\ClientServices.class
+fr\gtm\formation\proxibanque\service\CompteServices.class
+fr\gtm\formation\proxibanque\service\ConseillerServices.class
+fr\gtm\formation\proxibanque\service\webservice\ListeClient.class

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info">
+    <Properties>
+        <Property name="basePath">${sys:catalina.home}/webapps/ProxibanqueV3/log</Property>
+    </Properties>
+ 
+    <Appenders>
+        <RollingFile name="fileLogger" fileName="${basePath}/testLog4jV3.log" filePattern="${basePath}/app-info-%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd } - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+        </RollingFile>
+ 
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout   pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="fr.gtm.formation.proxibanque.service" level="trace" additivity="true">
+            <appender-ref ref="fileLogger" level="trace" />
+        </Logger>
+        <Root level="trace" additivity="false">
+            <appender-ref ref="console" />
+        </Root>
+    </Loggers>
+</Configuration>
