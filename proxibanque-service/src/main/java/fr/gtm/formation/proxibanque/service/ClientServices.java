@@ -124,6 +124,7 @@ public class ClientServices
 	 */
 	public void deleteClient(Client client) throws ServiceException
 	{
+		clientDao = new ClientDao();
 		try
 		{
 			clientDao.delete(client);
@@ -137,6 +138,7 @@ public class ClientServices
 
 	public void deleteClientById(int id) throws ServiceException
 	{
+		clientDao = new ClientDao();
 		try
 		{
 			clientDao.deleteByPk(id);

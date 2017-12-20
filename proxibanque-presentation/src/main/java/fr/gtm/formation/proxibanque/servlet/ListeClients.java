@@ -72,7 +72,7 @@ public class ListeClients extends HttpServlet
 			// Step 2 : transfer parameters to service layer
 			RequestDispatcher dispatcher;
 			HttpSession session = request.getSession();
-			session.setAttribute("success", null);
+
 			session.setAttribute("error", null);
 			session.setAttribute("warning", null);
 
@@ -82,10 +82,6 @@ public class ListeClients extends HttpServlet
 			try
 			{
 				listeClients = clientServices.getClientsByConseiller(conseiller.getLogin());
-				if (listeClients == null)
-				{
-					session.setAttribute("warning", "Vous n'avez pas de clients");
-				}
 			}
 			catch (ServiceException ex)
 			{
@@ -95,6 +91,10 @@ public class ListeClients extends HttpServlet
 
 			session.setAttribute("listeClients", listeClients);
 			dispatcher = request.getRequestDispatcher("listeClients.jsp");
+			if (listeClients == null)
+			{
+				session.setAttribute("warning", "Vous n'avez pas de clients");
+			}
 
 			// Step 3 : Answer
 			dispatcher.forward(request, response);

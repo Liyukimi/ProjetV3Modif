@@ -78,6 +78,7 @@ public class SuppressionClient extends HttpServlet
 			{
 				clientServices.deleteClientById(idClientSelect);
 				session.setAttribute("success", "Le client a été supprimé");
+
 			}
 			catch (ServiceException ex)
 			{
@@ -86,7 +87,7 @@ public class SuppressionClient extends HttpServlet
 			}
 
 			// Step 3 : Answer
-			dispatcher = getServletContext().getRequestDispatcher("suppressionClient.jsp");
+			dispatcher = getServletContext().getRequestDispatcher("/ListeClients");
 			dispatcher.forward(request, response);
 		}
 	}

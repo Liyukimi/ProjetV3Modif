@@ -1,5 +1,6 @@
 package fr.gtm.formation.proxibanque.servlet;
 
+import fr.gtm.formation.proxibanque.domaine.Client;
 import fr.gtm.formation.proxibanque.domaine.Conseiller;
 import fr.gtm.formation.proxibanque.service.exceptions.ServiceException;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.gtm.formation.proxibanque.service.ConseillerServices;
 import fr.gtm.formation.proxibanque.service.ClientServices;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -131,11 +133,10 @@ public class ConnectionConseiller extends HttpServlet
 				}
 				session.setAttribute("conseiller", conseiller);
 
-				/*Collection<Client> listeClients = clientServices.getClientsByConseiller(conseiller.getLogin());
+				Collection<Client> listeClients = clientServices.getClientsByConseiller(conseiller.getLogin());
 
 				session.setAttribute("listeClients", listeClients);
-				dispatcher = request.getRequestDispatcher("index.jsp");*/
-				dispatcher = request.getRequestDispatcher("ListeClients");
+				dispatcher = request.getRequestDispatcher("index.jsp");
 			}
 			else
 			{
