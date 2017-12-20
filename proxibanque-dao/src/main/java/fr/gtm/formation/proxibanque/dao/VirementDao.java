@@ -2,6 +2,7 @@ package fr.gtm.formation.proxibanque.dao;
 
 import fr.gtm.formation.proxibanque.dao.exceptions.DaoException;
 import fr.gtm.formation.proxibanque.domaine.Compte;
+import fr.gtm.formation.proxibanque.domaine.Conseiller;
 import fr.gtm.formation.proxibanque.domaine.Virement;
 import java.util.Collection;
 import java.util.logging.Level;
@@ -59,6 +60,36 @@ public class VirementDao extends GenericDaoImpl<Virement, Integer> implements Vi
 						));
 					break;
 			}
+
+			TypedQuery<Virement> query = em.createQuery(cQuery);
+			listeVirements = query.getResultList();
+		}
+		catch (Exception ex)
+		{
+			Logger.getLogger(VirementDao.class.getName()).log(Level.SEVERE, null, ex);
+			throw new DaoException("La liste des virements n'a pas été récupérée\n" + ex.getMessage(), ex.getCause());
+		}
+		finally
+		{
+			em.close();
+		}
+
+		return listeVirements;
+	}
+
+	public Collection getVirementsByConseiller(Conseiller conseiller) throws DaoException
+	{
+		Collection<Virement> listeVirements = null;
+
+		EntityManager em = this.emf.createEntityManager();
+
+		try
+		{
+			CriteriaBuilder builder = em.getCriteriaBuilder();
+			CriteriaQuery<Virement> cQuery = builder.createQuery(Virement.class);
+			Root<Virement> virement = cQuery.from(Virement.class);
+
+			cQuery.where(builder.equal(virement.get("conseiller"), conseiller));
 
 			TypedQuery<Virement> query = em.createQuery(cQuery);
 			listeVirements = query.getResultList();

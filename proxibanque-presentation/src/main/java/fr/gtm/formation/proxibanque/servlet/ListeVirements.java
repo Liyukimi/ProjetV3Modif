@@ -105,10 +105,6 @@ public class ListeVirements extends HttpServlet
 			{
 				listeDebits = (ArrayList<Virement>) virementServices.getVirementsByCompte(compte, "debit");
 				listeCredits = (ArrayList<Virement>) virementServices.getVirementsByCompte(compte, "credit");
-				if (listeDebits == null && listeCredits == null)
-				{
-					session.setAttribute("warning", "Le compte n°" + numCompte + " n'a aucune opération récente");
-				}
 			}
 			catch (ServiceException ex)
 			{
@@ -118,7 +114,11 @@ public class ListeVirements extends HttpServlet
 
 			session.setAttribute("ListeDebits", listeDebits);
 			session.setAttribute("ListeCredits", listeCredits);
-			session.setAttribute("numCompte", numCompte);
+			session.setAttribute("numCompteSelect", numCompte);
+			if (listeDebits == null && listeCredits == null)
+			{
+				session.setAttribute("warning", "Le compte n°" + numCompte + " n'a aucune opération récente");
+			}
 
 		}
 		catch (ServiceException ex)

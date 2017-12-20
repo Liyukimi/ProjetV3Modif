@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import fr.gtm.formation.proxibanque.domaine.Client;
 import fr.gtm.formation.proxibanque.service.exceptions.ServiceException;
 import fr.gtm.formation.proxibanque.service.ClientServices;
 import java.util.logging.Level;
@@ -27,25 +26,14 @@ import java.util.logging.Logger;
  * response) witch : 1/ get and analyse request parameters 2/ transfer those
  * parameters to the corresponding service layer 3/ forward the request and
  * response to an url or another servlet
- * <p>
- * Get an idClient in parameter and depending on the 'action' specified in the
- * form witch called it, redirect the request to the correct servlet
  *
  * @author proxibanque
  */
-@WebServlet("/ClientAction")
-public class ClientAction extends HttpServlet
+@WebServlet("/SuppressionClient")
+public class SuppressionClient extends HttpServlet
 {
 
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ClientAction()
-	{
-		super();
-	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException
@@ -65,10 +53,6 @@ public class ClientAction extends HttpServlet
 	 * 1/ get and analyse request parameters</br>
 	 * 2/ transfer those parameters to the corresponding service layer</br>
 	 * 3/ forward the request and response to an url or another servlet</br>
-	 * <p>
-	 * This method get an idClient in parameter and depending on the 'action'
-	 * specified in the form witch called it, redirect the request to the
-	 * correct servlet
 	 *
 	 * @param request  : the request
 	 * @param response : the response to dispatch
@@ -79,54 +63,31 @@ public class ClientAction extends HttpServlet
 		throws ServletException, IOException
 	{
 		{
+			// Step 1 : Get request parameters
+			int idClientSelect = Integer.parseInt(request.getParameter("idClientSelect"));
+			ClientServices clientServices = new ClientServices();
+
+			// Step 2 : transfer parameters to service layer
 			RequestDispatcher dispatcher;
 			HttpSession session = request.getSession();
 			session.setAttribute("success", null);
 			session.setAttribute("error", null);
 			session.setAttribute("warning", null);
-			// Step 1 : Get request parameters
 
-			if (request.getParameter("idClientSelect") == null)
+			try
 			{
-				session.setAttribute("error", "Aucune option n'a été sélectionnée");
-				dispatcher = getServletContext().getRequestDispatcher("/listeClients.jsp");
-				dispatcher.forward(request, response);
+				clientServices.deleteClientById(idClientSelect);
+				session.setAttribute("success", "Le client a été supprimé");
 			}
-			else
+			catch (ServiceException ex)
 			{
-
-				String action = request.getParameter("action");
-				int id = Integer.parseInt(request.getParameter("idClientSelect"));
-				ClientServices clientServices = new ClientServices();
-				Client client = null;
-				try
-				{
-					client = clientServices.getClientById(id);
-				}
-				catch (ServiceException ex)
-				{
-					Logger.getLogger(ClientAction.class.getName()).log(Level.SEVERE, null, ex);
-					session.setAttribute("error", ex.getMessage());
-				}
-
-				// Step 2 : Call another servlet depending on the 'action' form
-				if (action.equals("ListeComptes"))
-				{
-					dispatcher = getServletContext().getRequestDispatcher("/ListeComptes");
-					dispatcher.forward(request, response);
-				}
-				else if (action.equals("ModifClient"))
-				{
-					session.setAttribute("client", client);
-					dispatcher = getServletContext().getRequestDispatcher("/modifClient.jsp");
-					dispatcher.forward(request, response);
-				}
-				else if (action.equals("ClientSelect"))
-				{
-					dispatcher = getServletContext().getRequestDispatcher("/ClientSelect");
-					dispatcher.forward(request, response);
-				}
+				Logger.getLogger(SuppressionClient.class.getName()).log(Level.SEVERE, null, ex);
+				session.setAttribute("error", ex.getMessage());
 			}
+
+			// Step 3 : Answer
+			dispatcher = getServletContext().getRequestDispatcher("suppressionClient.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 

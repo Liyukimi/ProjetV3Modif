@@ -135,4 +135,16 @@ public class ClientServices
 		}
 	}
 
+	public void deleteClientById(int id) throws ServiceException
+	{
+		try
+		{
+			clientDao.deleteByPk(id);
+		}
+		catch (DaoException ex)
+		{
+			Logger.getLogger(ClientServices.class.getName()).log(Level.SEVERE, null, ex);
+			throw new ServiceException(ex.getMessage(), ex.getCause());
+		}
+	}
 }

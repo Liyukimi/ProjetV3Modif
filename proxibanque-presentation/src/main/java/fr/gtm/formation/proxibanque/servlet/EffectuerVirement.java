@@ -39,7 +39,7 @@ import java.util.logging.Logger;
  *
  * @author proxibanque
  */
-@WebServlet("/Virement")
+@WebServlet("/EffectuerVirement")
 public class EffectuerVirement extends HttpServlet
 {
 
@@ -123,7 +123,7 @@ public class EffectuerVirement extends HttpServlet
 		}
 
 		// Step 3 : response to the user
-		RequestDispatcher dispatcher = request.getRequestDispatcher("virement.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("effectuerVirement.jsp");
 
 		dispatcher.forward(request, response);
 	}

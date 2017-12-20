@@ -1,14 +1,15 @@
 package fr.gtm.formation.proxibanque.dao;
 
 import fr.gtm.formation.proxibanque.domaine.Compte;
-//import fr.gtm.formation.proxibanque.domaine.Compte_;
 import fr.gtm.formation.proxibanque.domaine.Client;
+import fr.gtm.formation.proxibanque.domaine.Conseiller;
 import fr.gtm.formation.proxibanque.dao.exceptions.DaoException;
 import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
 /**
@@ -92,4 +93,53 @@ public class CompteDao extends GenericDaoImpl<Compte, Integer> implements Compte
 		super.update(compte);
 	}
 
+	@Override
+	public Collection<Compte> getAllComptes() throws DaoException
+	{
+		//return super.readAll();
+		Collection<Compte> listeComptes = null;
+
+		EntityManager em = this.emf.createEntityManager();
+
+		try
+		{
+			CriteriaBuilder builder = em.getCriteriaBuilder();
+			CriteriaQuery<Compte> cQuery = builder.createQuery(Compte.class);
+			Root<Compte> compte = cQuery.from(Compte.class);
+
+			TypedQuery<Compte> query = em.createQuery(cQuery);
+			listeComptes = query.getResultList();
+		}
+		finally
+		{
+			em.close();
+		}
+		return listeComptes;
+	}
+
+	@Override
+	public Collection<Compte> getComptesByConseiller(Conseiller conseiller) throws DaoException
+	{
+		Collection<Compte> listeComptes = null;
+
+		EntityManager em = this.emf.createEntityManager();
+
+		try
+		{
+			CriteriaBuilder builder = em.getCriteriaBuilder();
+			CriteriaQuery<Compte> cQuery = builder.createQuery(Compte.class);
+			Root<Compte> compte = cQuery.from(Compte.class);
+			Join<Compte, Client> joinClient = compte.join("client");
+			Join<Client, Conseiller> joinConseiller = joinClient.join("conseiller");
+
+			cQuery.where(builder.equal(joinConseiller.get("login"), conseiller.getLogin()));
+			TypedQuery<Compte> query = em.createQuery(cQuery);
+			listeComptes = query.getResultList();
+		}
+		finally
+		{
+			em.close();
+		}
+		return listeComptes;
+	}
 }

@@ -12,8 +12,26 @@
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
+				 <c:if test = "${!empty listeClients}">
+                    	<li class="dropdown">                    
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-fw fa-arrows-v"></i> Mes clients <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<c:forEach items="${listeClients}" var="client" >
+								<li>
+									<a href="ClientSelect?idClientSelect=${client.idClient}">
+										<option value="${client.idClient}">${client.prenom} ${client.nom}</option>
+									</a>
+								</li>						
+							</c:forEach>								
+                        </ul>							
+                    </li>					
+                    </c:if>
 				<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> ${conseiller.prenom} ${conseiller.nom} <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-user"></i> ${conseiller.prenom} ${conseiller.nom} <b class="caret"></b>
+					</a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="index.jsp"><i class="fa fa-fw fa-user"></i> Mon compte</a>
@@ -36,17 +54,20 @@
                     <li>
                         <a href="creationClient.jsp"><i class="fa fa-fw fa-edit"></i> Création d'un client</a>
                     </li>
+					<li>
+                        <a href="suppressionClient.jsp"><i class="fa fa-fw fa-trash-o"></i> Suppression un client</a>
+                    </li>
                     <li>
-                        <a href="virement.jsp"><i class="fa fa-fw fa-credit-card"></i> Virement compte à compte</a>
+                        <a href="PreparerVirement"><i class="fa fa-fw fa-credit-card"></i> Virement compte à compte</a>
                     </li>	
                     <li>
-                        <a href="listeVirements.jsp"><i class="fa fa-fw fa-calculator"></i> Liste des virements</a>
+                        <a href="ListeComptesPourVirement"><i class="fa fa-fw fa-calculator"></i> Liste des virements</a>
                     </li>
                     
                     <li>
                     <a href="listeComptes.jsp"><i class="fa fa-fw fa-list-alt"></i> Liste des comptes</a>
                     </li>
-                    <c:if test = "${!empty listeClients}">
+                    <!--<c:if test = "${!empty listeClients}">
                     	<li>                    
                         <a href="javascript:;" data-toggle="collapse" data-target="#clients"><i class="fa fa-fw fa-arrows-v"></i> Mes clients <i class="fa fa-fw fa-caret-down"></i></a>
 						<ul id="clients" class="collapse">
@@ -57,7 +78,7 @@
 							</c:forEach>								
                         </ul>							
                     </li>					
-                    </c:if>
+                    </c:if>-->
 					
                 </ul>
             </div>

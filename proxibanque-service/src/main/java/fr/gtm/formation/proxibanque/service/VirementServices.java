@@ -9,6 +9,7 @@ import fr.gtm.formation.proxibanque.dao.CompteDao;
 import fr.gtm.formation.proxibanque.dao.VirementDao;
 import fr.gtm.formation.proxibanque.dao.exceptions.DaoException;
 import fr.gtm.formation.proxibanque.domaine.Compte;
+import fr.gtm.formation.proxibanque.domaine.Conseiller;
 import fr.gtm.formation.proxibanque.domaine.Virement;
 import fr.gtm.formation.proxibanque.service.exceptions.ServiceException;
 import java.util.ArrayList;
@@ -47,6 +48,22 @@ public class VirementServices
 		try
 		{
 			listeVirements = virementDao.getVirementsByCompte(compte, typeVirement);
+		}
+		catch (DaoException ex)
+		{
+			Logger.getLogger(VirementServices.class.getName()).log(Level.SEVERE, null, ex);
+			throw new ServiceException(ex.getMessage(), ex.getCause());
+		}
+		return listeVirements;
+	}
+
+	public Collection<Virement> getVirementsByConseiller(Conseiller conseiller) throws ServiceException
+	{
+		virementDao = new VirementDao();
+		Collection<Virement> listeVirements = new ArrayList<>();
+		try
+		{
+			listeVirements = virementDao.getVirementsByConseiller(conseiller);
 		}
 		catch (DaoException ex)
 		{

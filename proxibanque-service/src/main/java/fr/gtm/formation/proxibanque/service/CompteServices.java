@@ -4,6 +4,7 @@ import fr.gtm.formation.proxibanque.dao.CompteDao;
 import fr.gtm.formation.proxibanque.domaine.Compte;
 import fr.gtm.formation.proxibanque.domaine.Client;
 import fr.gtm.formation.proxibanque.dao.exceptions.DaoException;
+import fr.gtm.formation.proxibanque.domaine.Conseiller;
 import fr.gtm.formation.proxibanque.service.exceptions.ServiceException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -61,5 +62,37 @@ public class CompteServices
 			throw new ServiceException(ex.getMessage(), ex.getCause());
 		}
 		return compte;
+	}
+
+	public Collection<Compte> getAllComptes() throws ServiceException
+	{
+		compteDao = new CompteDao();
+		Collection<Compte> listeComptes = null;
+		try
+		{
+			listeComptes = compteDao.getAllComptes();
+		}
+		catch (DaoException ex)
+		{
+			Logger.getLogger(CompteServices.class.getName()).log(Level.SEVERE, null, ex);
+			throw new ServiceException(ex.getMessage(), ex.getCause());
+		}
+		return listeComptes;
+	}
+
+	public Collection<Compte> getComptesByConseiller(Conseiller conseiller) throws ServiceException
+	{
+		compteDao = new CompteDao();
+		Collection<Compte> listeComptes = null;
+		try
+		{
+			listeComptes = compteDao.getComptesByConseiller(conseiller);
+		}
+		catch (DaoException ex)
+		{
+			Logger.getLogger(CompteServices.class.getName()).log(Level.SEVERE, null, ex);
+			throw new ServiceException(ex.getMessage(), ex.getCause());
+		}
+		return listeComptes;
 	}
 }
