@@ -1,6 +1,6 @@
 <%@include file="head.jsp" %>
 <body>
-<!------------------------------------------------ DEBUIT DE LA PAGE PRINCIPALE ------------------------------------------------>
+	<!------------------------------------------------ DEBUIT DE LA PAGE PRINCIPALE ------------------------------------------------>
 	<div class="login">
 		<c:if test = "${!empty error}">
 			<div class="alert alert-danger">
@@ -8,7 +8,7 @@
 				<h5>${error}</h5>				
 			</div>
 		</c:if>
-			
+
 		<div class="panel panel-primary">
 			<div class="panel-heading">Connexion</div>
 			<div class="panel-body">
@@ -28,7 +28,7 @@
 			</div>
 		</div>
 	</div>
-<!------------------------------------------------ FIN DE LA PAGE PRINCIPALE ------------------------------------------------>
+	<!------------------------------------------------ FIN DE LA PAGE PRINCIPALE ------------------------------------------------>
 	<!-- jQuery -->
     <script src="assets/js/jquery.js"></script>
     <!-- Bootstrap Core JavaScript -->

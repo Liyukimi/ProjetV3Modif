@@ -61,13 +61,13 @@
 						<div class="form-group">
 							<label  for="numCompteDebit">Compte à débiter :</label>
 							<c:if test = "${!empty ListeComptesClients}">
-							<select class="form-control" required="required" id="numCompteDebit" name="numCompteDebit">
-							<c:forEach items="${ListeComptesClients}" var="compteDebit" >
-								<option  name="numCompteDebit" required="required" value="${compteDebit.numeroCompte}">
-									n°${compteDebit.numeroCompte} - Client : ${compteDebit.client.prenom} ${compteDebit.client.nom}	
-								</option>
-							</c:forEach>
-							</select>
+								<select class="form-control" required="required" id="numCompteDebit" name="numCompteDebit">
+									<c:forEach items="${ListeComptesClients}" var="compteDebit" >
+										<option  name="numCompteDebit" required="required" value="${compteDebit.numeroCompte}">
+											n°${compteDebit.numeroCompte} - Client : ${compteDebit.client.prenom} ${compteDebit.client.nom}	
+										</option>
+									</c:forEach>
+								</select>
 							</c:if>
 							<c:if test = "${empty ListeComptesClients}">
 								Vous n'avez pas de client ayant un compte !
@@ -79,12 +79,12 @@
 							<label  for="numCompteCredit">Compte à créditer :</label>
 							<c:if test = "${!empty ListeComptesTotale}">
 								<select class="form-control" required="required" id="numCompteCredit" name="numCompteCredit">
-								<c:forEach items="${ListeComptesTotale}" var="compteCredit" >
-									<option  name="numCompteCredit" required="required" value="${compteCredit.numeroCompte}">
-										n°${compteCredit.numeroCompte} - 
-									Client : ${compteCredit.client.prenom} ${compteCredit.client.nom}				
-								</option>
-								</c:forEach>
+									<c:forEach items="${ListeComptesTotale}" var="compteCredit" >
+										<option  name="numCompteCredit" required="required" value="${compteCredit.numeroCompte}">
+											n°${compteCredit.numeroCompte} - 
+											Client : ${compteCredit.client.prenom} ${compteCredit.client.nom}				
+										</option>
+									</c:forEach>
 								</select>
 							</c:if>
 							<c:if test = "${empty ListeComptesTotale}">

@@ -3,7 +3,7 @@
 		<h3><strong>Opération effectuée !</strong></h3>
 		<h5>${success}</h5>
 	</div>
-</c:if>
+</c:if> 
 
 <c:if test = "${!empty warning}">
 	<div class="alert alert-warning">
