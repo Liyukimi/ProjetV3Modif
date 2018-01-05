@@ -30,7 +30,6 @@ public class ClientServices
 	 * @param login
 	 * @return Collection de clients
 	 * @throws ServiceException
-	 * @throws fr.gtm.formation.proxibanque.service.exceptions.ServiceNullWarning
 	 */
 	public Collection<Client> getClientsByConseiller(String login) throws ServiceException
 	{

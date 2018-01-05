@@ -32,14 +32,14 @@
 						<legend>Création d'un nouveau client</legend>
 						<div class="form-group">
 							<label  for="nom">Nom :</label>
-							<input type="text" class="form-control" required="required" name="nom" title="Maximum 20 caractères non accentués" pattern="[aA-Z][a-zA-Z-]+">
+							<input type="text" class="form-control" required="required" name="nom" title="Maximum 20 caractères non accentués" pattern="[a-zA-Z][a-zA-Z-]*">
 						</div>
 						<div class="form-group">
 							<label  for="prenom">Prénom :</label>
-							<input type="text" class="form-control" required="required" name="prenom" title="Maximum 20 caractères non accentués" pattern="[a-zA-Z][a-zA-Z-]+">
+							<input type="text" class="form-control" required="required" name="prenom" title="Maximum 20 caractères non accentués" pattern="[a-zA-Z][a-zA-Z-]*">
 						</div>
 						<div class="form-group">
-							<label for="adresse">Adressee :</label>
+							<label for="adresse">Adresse :</label>
 							<input type="text" class="form-control" name="adresse" name="adresse" title="Numéro de rue et adresse. Maximum 60 caractères non accentués" pattern="[0-9]+\s[a-zA-Z-\s]+" maxlength="60">
 						</div>
 						<div class="form-group">

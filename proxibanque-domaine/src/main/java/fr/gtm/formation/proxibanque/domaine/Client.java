@@ -15,10 +15,10 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @NamedQueries(
-		{
-			@NamedQuery(name = "Client.findAll", query = "SELECT c FROM Client c")
-			, @NamedQuery(name = "Client.findByIdClient", query = "SELECT c FROM Client c WHERE c.idClient = :idClient")
-		})
+	{
+		@NamedQuery(name = "Client.findAll", query = "SELECT c FROM Client c")
+		, @NamedQuery(name = "Client.findByIdClient", query = "SELECT c FROM Client c WHERE c.idClient = :idClient")
+	})
 public class Client implements Serializable
 {
 
@@ -107,6 +107,19 @@ public class Client implements Serializable
 		this.ville = ville;
 		this.telephone = telephone;
 		this.mail = mail;
+	}
+
+	public Client(String nom, String prenom, String adresse, String codePostal, String ville, String telephone,
+				  String mail, Conseiller conseiller)
+	{
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresse = adresse;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.telephone = telephone;
+		this.mail = mail;
+		this.conseiller = conseiller;
 	}
 
 	public Client(String nom, String prenom, String adresse, String codePostal, String ville, String telephone,

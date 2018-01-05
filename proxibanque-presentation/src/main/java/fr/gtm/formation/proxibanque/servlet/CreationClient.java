@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import fr.gtm.formation.proxibanque.domaine.Client;
 import fr.gtm.formation.proxibanque.service.exceptions.ServiceException;
 import fr.gtm.formation.proxibanque.service.ClientServices;
+import fr.gtm.formation.proxibanque.service.ConseillerServices;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -65,6 +66,8 @@ public class CreationClient extends HttpServlet
 	{
 		{
 			ClientServices clientServices = new ClientServices();
+			ConseillerServices conseillerServices = new ConseillerServices();
+
 			// Step 1 : Get request parameters
 			String nom = request.getParameter("nom");
 			String prenom = request.getParameter("prenom");
@@ -75,9 +78,6 @@ public class CreationClient extends HttpServlet
 			String mail = request.getParameter("mail");
 			String login = request.getParameter("login");
 
-			Client client = new Client(nom.toUpperCase(), prenom.toUpperCase(), adresse.toUpperCase(),
-									   codePostal, ville.toUpperCase(), telephone, mail);
-
 			// Step 2 : transfer parameters to service layer
 			RequestDispatcher dispatcher;
 			HttpSession session = request.getSession();
@@ -87,7 +87,11 @@ public class CreationClient extends HttpServlet
 
 			try
 			{
+				Client client = new Client(nom.toUpperCase(), prenom.toUpperCase(), adresse.toUpperCase(),
+										   codePostal, ville.toUpperCase(), telephone, mail);
+				client.setConseiller(conseillerServices.getConseillerByLogin(login));
 				clientServices.createClient(client);
+
 				session.setAttribute("success", "Le client " + prenom + " " + nom + " a été créé");
 				session.setAttribute("idClientSelect", client.getIdClient());
 				session.setAttribute("listeClients", clientServices.getClientsByConseiller(login));

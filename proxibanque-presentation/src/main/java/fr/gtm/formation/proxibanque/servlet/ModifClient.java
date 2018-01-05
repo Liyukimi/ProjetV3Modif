@@ -112,26 +112,27 @@ public class ModifClient extends HttpServlet
 						clientServices.updateClient(client);
 						session.setAttribute("success", "Le client a été modifié");
 						// Update listeClients
+						session.setAttribute("idClientSelect", client.getIdClient());
 						session.setAttribute("listeClients", clientServices.getClientsByConseiller(login));
 						dispatcher = getServletContext().getRequestDispatcher("/ClientSelect");
 						dispatcher.forward(request, response);
-
 					}
 					catch (ServiceException ex)
 					{
 						Logger.getLogger(ModifClient.class.getName()).log(Level.SEVERE, null, ex);
 						session.setAttribute("error", ex.getMessage());
+						dispatcher = getServletContext().getRequestDispatcher("/modifClient.jsp");
+						dispatcher.forward(request, response);
 					}
 				}
 				catch (ServiceException ex)
 				{
 					Logger.getLogger(ModifClient.class.getName()).log(Level.SEVERE, null, ex);
 					session.setAttribute("error", ex.getMessage());
+					dispatcher = getServletContext().getRequestDispatcher("/modifClient.jsp");
+					dispatcher.forward(request, response);
 				}
-				dispatcher = getServletContext().getRequestDispatcher("/modifClient.jsp");
-				dispatcher.forward(request, response);
 			}
-
 		}
 
 	}

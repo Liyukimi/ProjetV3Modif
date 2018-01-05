@@ -54,10 +54,10 @@
 				<a href="ListeClients"><!--class="active"--><i class="fa fa-fw fa-address-book"></i> Liste des clients</a>
 			</li>
 			<li>
-				<a href="creationClient.jsp"><i class="fa fa-fw fa-edit"></i> Création d'un client</a>
+				<a href="creationClient.jsp"><i class="fa fa-fw fa-edit"></i> Créer un client</a>
 			</li>
 			<li>
-				<a href="suppressionClient.jsp"><i class="fa fa-fw fa-trash-o"></i> Suppression un client</a>
+				<a href="suppressionClient.jsp"><i class="fa fa-fw fa-trash-o"></i> Supprimer un client</a>
 			</li>
 
 			<li class="divider">Comptes et Virements</li>
